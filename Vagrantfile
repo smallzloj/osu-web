@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8000, host: 8081
   config.vm.network :forwarded_port, guest: 3306, host: 3366
 
-  config.vm.synced_folder "../", "/data/osu!web", :mount_options => ["dmode=777,fmode=777"]
+  config.vm.synced_folder ".", "/data/osu!web", :mount_options => ["dmode=777,fmode=777"]
 
   config.vm.provider :virtualbox do |vb, override|
     vb.name = "osu!web"

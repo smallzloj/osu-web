@@ -15,7 +15,7 @@ Deploying
 
 1. Clone repository
 2. Open shell and point to checkout directory
-3. `cd vagrant; vagrant up`
+3. `vagrant up`
 4. wait patiently
 5. Access the site from http://localhost:8080/.
 
@@ -23,7 +23,7 @@ Deploying
 
 ### Creating user
 
-    c:\osuweb\vagrant> vagrant ssh
+    c:\osuweb> vagrant ssh
     $ cd /data/osu\!web
     $ php artisan tinker
     >>> App\Models\User::create(["username" => "yourusername", "user_password" => password_hash(md5("yourpassword"), PASSWORD_BCRYPT)]);
@@ -32,14 +32,14 @@ Deploying
 
 Using Laravel's [Elixir](http://laravel.com/docs/5.1/elixir).
 
-    c:\osu-web\vagrant> vagrant ssh
+    c:\osu-web> vagrant ssh
     $ cd /data/osu\!web
     $ php artisan lang:js resources/assets/js/messages.js
     $ ./node_modules/.bin/gulp
 
 ### Reset the database + seed
 
-    c:\osuweb\vagrant> vagrant ssh
+    c:\osuweb> vagrant ssh
     $ cd /data/osu\!web
     $ php artisan migrate:refresh --seed
 
