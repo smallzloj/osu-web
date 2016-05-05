@@ -527,3 +527,23 @@ function array_rand_val($array)
 {
     return $array[array_rand($array)];
 }
+
+function can($ability, $args)
+{
+    return App\Libraries\Authorize::can($ability, $args);
+}
+
+function can_user($user, $ability, $args)
+{
+    return App\Libraries\Authorize::canUser($user, $ability, $args);
+}
+
+function ensure_can($ability, $args)
+{
+    return App\Libraries\Authorize::ensureCan($ability, $args);
+}
+
+function ensure_can_user($user, $ability, $args)
+{
+    return App\Libraries\Authorize::ensureCanUser($user, $ability, $args);
+}

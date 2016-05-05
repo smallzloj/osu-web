@@ -43,9 +43,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         $this->authorizePost($post->forum, $post->topic);
-        if (!$post->canBeDeletedBy(Auth::user())) {
-            abort(403);
-        }
+        ensure_can('ForumPostDelete', $post);
 
         $deletedPostPosition = $post->topic->postPosition($post->post_id);
 

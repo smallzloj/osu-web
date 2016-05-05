@@ -136,31 +136,6 @@ class Post extends Model
         return $this->topic->postPosition($this->post_id);
     }
 
-    public function canBeDeletedBy($user, $position = null, $topicPostsCount = null, $positionCheck = true)
-    {
-        if ($user === null) {
-            return false;
-        } elseif ($user->isAdmin() === true) {
-            return true;
-        } elseif ($this->poster_id !== $user->user_id) {
-            return false;
-        } else {
-            if ($positionCheck === false) {
-                return true;
-            }
-
-            if ($position === null) {
-                $position = $this->postPosition;
-            }
-
-            if ($topicPostsCount === null) {
-                $topicPostsCount = $this->topic->postsCount();
-            }
-
-            return $position === $topicPostsCount;
-        }
-    }
-
     public function canBeEditedBy($user)
     {
         if ($user === null) {

@@ -19,7 +19,7 @@
     @include('forum.topics._post', [
         'post' => $post,
         'options' => [
-            'deleteLink' => $post->canBeDeletedBy(Auth::user(), null, null, false),
+            'deleteLink' => can('ForumPostDelete', [$post, false])[0],
             'editLink' => $post->canBeEditedBy(Auth::user()),
             'postPosition' => $postsPosition[$post->post_id],
             'replyLink' => $topic->canBeRepliedBy(Auth::user()),
