@@ -136,19 +136,6 @@ class Post extends Model
         return $this->topic->postPosition($this->post_id);
     }
 
-    public function canBeEditedBy($user)
-    {
-        if ($user === null) {
-            return false;
-        } elseif ($this->poster_id === $user->user_id) {
-            return !$this->post_edit_locked;
-        } elseif ($user->isAdmin()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function edit($body, $user)
     {
         if ($body === $this->bodyRaw) {

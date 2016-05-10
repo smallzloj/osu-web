@@ -27,5 +27,9 @@ return [
                 'can_only_delete_last_post' => 'Only last post can be deleted',
             ],
         ],
+
+        'view' => [
+            'admin_only' => 'Only admin can view this forum',
+        ],
     ],
 ];

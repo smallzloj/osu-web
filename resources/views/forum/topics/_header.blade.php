@@ -56,7 +56,7 @@
             @endif
         </div>
 
-        @if (isset($topic) === false || $topic->canBeEditedBy(Auth::user()))
+        @if (!isset($topic) || can('ForumTopicEdit', $topic)[0])
             @include('forum._cover')
         @endif
     </div>

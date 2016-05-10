@@ -102,9 +102,7 @@ class AccountController extends Controller
             abort(403);
         }
 
-        if (!$user->userPage->canBeEditedBy($user)) {
-            abort(403);
-        }
+        ensure_can('ForumPostEdit', $user->userPage);
 
         $user = $user->updatePage(Request::input('body'));
 

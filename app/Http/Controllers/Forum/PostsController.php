@@ -68,9 +68,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         $this->authorizePost($post->forum, $post->topic);
-        if (!$post->canBeEditedBy(Auth::user())) {
-            abort(403);
-        }
+        ensure_can('ForumPostEdit', $post);
 
         return view('forum.topics._post_edit', compact('post'));
     }
@@ -80,9 +78,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         $this->authorizePost($post->forum, $post->topic);
-        if (!$post->canBeEditedBy(Auth::user())) {
-            abort(403);
-        }
+        ensure_can('ForumPostEdit', $post);
 
         $body = Request::input('body');
         if ($body !== '') {
@@ -100,7 +96,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $this->authorizeView($post->forum);
+        ensure_can('ForumView', $post->forum);
 
         $text = $post->bodyRaw;
 
@@ -115,7 +111,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $this->authorizeView($post->forum);
+        ensure_can('ForumView', $post->forum);
 
         return ujs_redirect(post_url($post->topic_id, $post->post_id));
     }

@@ -68,6 +68,17 @@ class Authorize
         return static::ensureCanUser(Auth::user(), $ability, $args);
     }
 
+    public static function checkForumView($user, $forum)
+    {
+        if ($user !== null && $user->is_admin) {
+            return;
+        }
+
+        if ($forum->categoryId() === config('osu.forum.admin_forum_id')) {
+            return 'forum.view.admin_only';
+        }
+    }
+
     public static function checkForumPostDelete($user, $post, $positionCheck = true, $position = null, $topicPostsCount = null)
     {
         $prefix = 'forum.post.delete';
@@ -98,6 +109,57 @@ class Authorize
 
         if ($position !== $topicPostsCount) {
             return "{$prefix}.can_only_delete_last_post";
+        }
+    }
+
+    public static function checkForumPostEdit($user, $post)
+    {
+        $prefix = 'forum.post.edit';
+
+        if ($user === null) {
+            return  "{$prefix}.require_login";
+        }
+
+        if ($user->is_admin) {
+            return;
+        }
+
+        if ($post->poster_id !== $user->user_id) {
+            return "{$prefix}.not_post_owner";
+        }
+
+        if ($post->post_edit_locked) {
+            return "{$prefix}.locked";
+        }
+    }
+
+    public static function checkForumTopicEdit($user, $topic)
+    {
+        return static::checkForumPostEdit($user, $topic->posts()->first());
+    }
+
+    public static function checkForumTopicCoverEdit($user, $cover)
+    {
+        $prefix = 'forum.topic_cover.edit';
+
+        if ($cover->topic !== null) {
+            return static::checkForumTopicEdit($user, $cover->topic);
+        }
+
+        if ($user === null) {
+            return "{$prefix}.require_login";
+        }
+
+        if ($user->is_admin) {
+            return;
+        }
+
+        if ($cover->owner() === null) {
+            return "{$prefix}.uneditable";
+        }
+
+        if ($cover->owner()->user_id !== $user->user_id) {
+            return "{$prefix}.owner_only";
         }
     }
 }

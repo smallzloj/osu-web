@@ -20,7 +20,7 @@
         'post' => $post,
         'options' => [
             'deleteLink' => can('ForumPostDelete', [$post, false])[0],
-            'editLink' => $post->canBeEditedBy(Auth::user()),
+            'editLink' => can('ForumPostEdit', $post)[0],
             'postPosition' => $postsPosition[$post->post_id],
             'replyLink' => $topic->canBeRepliedBy(Auth::user()),
         ],
