@@ -19,22 +19,17 @@
 
 bn = 'avatar'
 
-@UserAvatar = React.createClass
-  mixins: [React.addons.PureRenderMixin]
-
-
-  render: ->
-    modifiers = @props
-      .modifiers
+@UserAvatar = ({modifiers, user}) =>
+    modifiers = modifiers
       .map (m) => "#{bn}--#{m}"
       .join ' '
 
     className = "#{bn} #{modifiers}"
 
-    if @props.user.id?
+    if user.id?
       div
         className: className
         style:
-          backgroundImage: "url('#{@props.user.avatarUrl}')"
+          backgroundImage: "url('#{user.avatarUrl}')"
     else
       div className: "#{className} #{bn}--guest"
