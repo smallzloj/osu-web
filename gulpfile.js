@@ -55,6 +55,7 @@ elixir(function(mix) {
     'react/_components/*.coffee',
     'react/_mixins/*.coffee',
 
+    'react-namespaces.coffee',
     'jquery-pubsub.coffee',
     'osu!live.coffee',
     'osu_common.coffee',
